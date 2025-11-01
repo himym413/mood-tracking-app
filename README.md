@@ -37,7 +37,7 @@ Users should be able to:
 ### Links
 
 - Solution URL: [GitHub](https://github.com/himym413/mood-tracking-app)
-- Live Site URL: [Vercel](https://your-live-site-url.com)
+- Live Site URL: [Vercel](https://mood-tracking-app-lime.vercel.app/login)
 
 ## My process
 
