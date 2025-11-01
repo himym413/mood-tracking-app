@@ -36,7 +36,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [GitHub](https://your-solution-url.com)
+- Solution URL: [GitHub](https://github.com/himym413/mood-tracking-app)
 - Live Site URL: [Vercel](https://your-live-site-url.com)
 
 ## My process

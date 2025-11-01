@@ -41,7 +41,7 @@ function Step1And4Input({ mood, sleepHours, register }: Step1And4InputProps) {
           id={inputId}
           type="radio"
           className="appearance-none w-250 h-250 border border-blue-200 rounded-full relative"
-          value={inputValue}
+          value={String(inputValue ?? "")}
           defaultChecked={isDefaultChecked}
           aria-labelledby={`${inputId}-label`}
           {...(register && { ...register(`${inputName}`) })}
