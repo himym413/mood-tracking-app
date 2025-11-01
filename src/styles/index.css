@@ -1,0 +1,277 @@
+@import "tailwindcss";
+
+@theme {
+  /* overwriting --font-sans as it is default font family used by tailwind */
+  --font-sans: "Reddit Sans", sans-serif;
+
+  /* disabling some of the default colors */
+  /* adding new colors from figma style guide with the same name as default */
+  --color-neutral-*: initial;
+  --color-neutral-0: #ffffff;
+  --color-neutral-200: #cbcdd0;
+  --color-neutral-300: #9393b7;
+  --color-neutral-600: #57577b;
+  --color-neutral-900: #21214d;
+
+  --color-blue-*: initial;
+  --color-blue-100: #e0e6fa;
+  --color-blue-200: #c7d3f7;
+  --color-blue-300: #89caff;
+  --color-blue-600: #4865db;
+  --color-blue-700: #2a4cd5;
+
+  --color-red-*: initial;
+  --color-red-300: #ff9b99;
+  --color-red-700: #e60013;
+
+  --color-indigo-*: initial;
+  --color-indigo-200: #b8b1ff;
+
+  --color-green-*: initial;
+  --color-green-300: #89e780;
+
+  --color-amber-*: initial;
+  --color-amber-300: #ffc97c;
+
+  /* disabling default spacing options and */
+  /* customizing spacing for padding, margin... based on figma style guide */
+  --spacing-*: initial;
+  --spacing-0: 0px;
+  --spacing-025: 2px;
+  --spacing-050: 4px;
+  --spacing-075: 6px;
+  --spacing-100: 8px;
+  --spacing-125: 10px;
+  --spacing-150: 12px;
+  --spacing-200: 16px;
+  --spacing-250: 20px;
+  --spacing-300: 24px;
+  --spacing-400: 32px;
+  --spacing-500: 40px;
+  --spacing-600: 48px;
+  --spacing-800: 64px;
+  --spacing-1000: 80px;
+
+  /* disabling deafult radius options */
+  /* adding new radius options based on figma style guide */
+  --radius-*: initial;
+  --radius-0: 0px;
+  --radius-4: 4px;
+  --radius-6: 6px;
+  --radius-8: 8px;
+  --radius-10: 10px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-20: 20px;
+  --radius-24: 24px;
+  --radius-full: 999px;
+}
+
+@layer components {
+  /* using preset text styles from figma style guide */
+  .text-preset-1 {
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 140%;
+    letter-spacing: -2px;
+  }
+
+  .text-preset-1-mobile {
+    font-size: 46px;
+    font-weight: 700;
+    line-height: 120%;
+    letter-spacing: -2px;
+  }
+
+  .text-preset-2 {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 120%;
+    letter-spacing: -0.3px;
+  }
+
+  .text-preset-2-mobile {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 120%;
+    letter-spacing: -0.3px;
+  }
+
+  .text-preset-3 {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 140%;
+    letter-spacing: -0.3px;
+  }
+
+  .text-preset-3-mobile {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 130%;
+    letter-spacing: -0.3px;
+  }
+
+  .text-preset-4 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 140%;
+    letter-spacing: 0px;
+  }
+
+  .text-preset-4-regular {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: 0px;
+  }
+
+  .text-preset-5 {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 140%;
+    letter-spacing: 0px;
+  }
+
+  .text-preset-6 {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 120%;
+    letter-spacing: 0px;
+  }
+
+  .text-preset-6-italic {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 130%;
+    letter-spacing: 0px;
+    font-style: italic;
+  }
+
+  .text-preset-6-regular {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: -0.3px;
+  }
+
+  .text-preset-7 {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: -0.3px;
+  }
+
+  .text-preset-8 {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 100%;
+    letter-spacing: 0px;
+  }
+
+  .text-preset-9 {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 110%;
+    letter-spacing: 0px;
+  }
+
+  .linear-gradient-background {
+    background: linear-gradient(180deg, #f5f5ff 72.99%, #e0e0ff 100%);
+  }
+}
+
+/* styling chart */
+.recharts-wrapper .recharts-cartesian-grid-horizontal line {
+  opacity: 0.4 !important;
+}
+.recharts-wrapper .recharts-cartesian-grid-horizontal line:first-child {
+  stroke-opacity: 0 !important;
+}
+
+/* input type file focusing label */
+div:has(+ .inputTypeFile:focus) label {
+  outline: 2px solid #2a4cd5;
+  outline-offset: 3px;
+}
+
+/* inputs in MoodDialog */
+/* Step1 Input */
+label:has(input[name="mood"]:checked) {
+  border-color: #2a4cd5;
+}
+input[name="mood"] {
+  cursor: pointer;
+}
+input[name="mood"]:checked {
+  background-color: #2a4cd5;
+  border-color: #2a4cd5;
+}
+input[name="mood"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: white;
+}
+input[name="mood"]:focus {
+  outline: none;
+}
+/* Step1 Input */
+label:has(input[name="sleepHours"]:checked) {
+  border-color: #2a4cd5;
+}
+input[name="sleepHours"]:checked {
+  background-color: #2a4cd5;
+  border-color: #2a4cd5;
+}
+input[name="sleepHours"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: white;
+}
+input[name="sleepHours"]:focus {
+  outline: none;
+}
+
+/* Step2 Input */
+label:has(input[name="feelings"]:checked) {
+  border-color: #2a4cd5;
+}
+input[name="feelings"] {
+  border-radius: 4px;
+  cursor: pointer;
+}
+input[name="feelings"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  background-image: url("../assets/images/icon-check.svg");
+  background-size: 10px 8px;
+  background-repeat: no-repeat;
+  background-position: 3px 5px;
+  background-color: #2a4cd5;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+label:has(input[name="feelings"]:disabled) {
+  opacity: 0.7;
+  cursor: default;
+}
+input[name="feelings"]:disabled {
+  cursor: default;
+}
