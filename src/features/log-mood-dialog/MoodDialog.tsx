@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaCircleInfo } from "react-icons/fa6";
+import { motion, AnimatePresence } from "framer-motion";
 
 import {
   updateStep,
@@ -47,34 +48,34 @@ function MoodDialog({ onClose }: MoodDialogProps) {
   const ref = useOutsideClick(onClose);
 
   function onSubmit(data: MoodFormData) {
-    // checking for error on step 2 - no tags selected
+    // Step validation
     if (step === 2 && feelings.length === 0) {
       dispatch(setError("Select at least one tag."));
       return;
     }
-
-    // checking for error on step 3 - minimum 10 characters
     if (step === 3 && journalEntry.length < 10) {
       dispatch(
-        setError("Please write a few words about your day before continuing.")
+        setError(
+          "Please write a few words about your day before continuing (10 letters minimum)."
+        )
       );
       return;
     }
 
     if (step < 4) {
       dispatch(updateStep());
+
+      // Smooth scroll to top of dialog
+      if (ref.current) {
+        ref.current.scrollTo({ top: 0, behavior: "smooth" });
+      }
     }
 
-    // final submit
+    // Final submit
     if (step >= 4) {
-      // here im manually assigning feelings from lodMoodDialogSlice state
-      // because inside step2input im overwriting onChange event
-      // that results in not updating react hook form data
-      // and only updates state from logMoodDialogSlice
       data.feelings = feelings;
       dispatch(submitMood({ formData: data as DataType })).then((action) => {
         if (submitMood.fulfilled.match(action)) dispatch(getMoodLogs());
-
         if (submitMood.rejected.match(action))
           toast.error(action.payload as string);
       });
@@ -83,10 +84,15 @@ function MoodDialog({ onClose }: MoodDialogProps) {
   }
 
   return createPortal(
-    <>
-      <Overlay />
-      <dialog
+    <AnimatePresence>
+      <Overlay key="overlay" />
+      <motion.dialog
         ref={ref as RefObject<HTMLDialogElement | null>}
+        key="dialog"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
         className="fixed top-1000 left-1/2 -translate-x-1/2 max-w-[600px] px-250 py-500 rounded-16 flex flex-col gap-300 md:gap-400 w-[calc(100%-40px)] linear-gradient-background [@media(max-height:900px)]:h-[500px] overflow-y-auto"
         aria-labelledby="mood-dialog-title"
         aria-modal="true"
@@ -99,10 +105,21 @@ function MoodDialog({ onClose }: MoodDialogProps) {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-300"
         >
-          {step === 1 && <Step1 register={register} />}
-          {step === 2 && <Step2 register={register} />}
-          {step === 3 && <Step3 register={register} />}
-          {step === 4 && <Step4 register={register} />}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={step} // important for step transition
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+              className="flex flex-col gap-300"
+            >
+              {step === 1 && <Step1 register={register} />}
+              {step === 2 && <Step2 register={register} />}
+              {step === 3 && <Step3 register={register} />}
+              {step === 4 && <Step4 register={register} />}
+            </motion.div>
+          </AnimatePresence>
 
           {error.length !== 0 && (
             <p className="text-red-700 text-preset-7 flex items-center gap-075">
@@ -110,14 +127,15 @@ function MoodDialog({ onClose }: MoodDialogProps) {
               <span>{error}</span>
             </p>
           )}
+
           <Button
             text={step !== 4 ? "Continue" : "Submit"}
             variant="home"
             type="submit"
           />
         </form>
-      </dialog>
-    </>,
+      </motion.dialog>
+    </AnimatePresence>,
     document.getElementById("mood-form")!
   );
 }

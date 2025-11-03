@@ -57,6 +57,7 @@ function Navigation() {
         <SettingsDialog
           dialogRef={dialogRef as RefObject<HTMLDialogElement>}
           onClose={() => setShowSettingsDialog(false)}
+          isOpen={showSettingsDialog}
         />
       )}
     </nav>
