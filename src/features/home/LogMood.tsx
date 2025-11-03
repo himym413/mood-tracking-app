@@ -25,13 +25,15 @@ function LogMood({ onClick, moodLogged }: LogMoodProps) {
       </div>
     </div>
   ) : (
-    <section className="mb-600 flex flex-col items-center text-center lg:mb-800">
+    <section className="mt-600 lg:mt-0 mb-600 flex flex-col items-center text-center lg:mb-800">
       <div className={`${!moodLogged ? "mb-600 lg:mb-800" : ""}`}>
         <h3 className="text-preset-3-mobile text-blue-600 md:text-preset-3 mb-125 md:text-preset-3">
           {`Hello ${name}!`}
         </h3>
         <h1 className="md:text-preset-1 text-preset-1-mobile text-neutral-900 mb-125">
-          How are you feeling today?
+          {!moodLogged
+            ? "How are you feeling today?"
+            : "You logged your mood for today!"}
         </h1>
         <p className="text-preset-6 text-neutral-600">{formattedDate}</p>
       </div>

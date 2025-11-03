@@ -82,6 +82,7 @@ function Form({ cardType }: FormProps) {
           dispatch(resetMoodDialogState());
           dispatch(getMoodLogs());
           navigate("/");
+          window.scrollTo({ top: 0, behavior: "instant" });
         }
 
         if (login.rejected.match(action)) {
@@ -95,7 +96,10 @@ function Form({ cardType }: FormProps) {
     if (cardType === "onboarding" && name && avatar) {
       dispatch(createOrUpdateProfile({ name, avatar: avatarFile })).then(
         (action) => {
-          if (createOrUpdateProfile.fulfilled.match(action)) navigate("/");
+          if (createOrUpdateProfile.fulfilled.match(action)) {
+            navigate("/");
+            window.scrollTo({ top: 0, behavior: "instant" });
+          }
 
           if (createOrUpdateProfile.rejected.match(action)) {
             toast.error(action.payload as string);

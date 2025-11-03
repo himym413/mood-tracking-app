@@ -9,24 +9,13 @@ import {
 } from "../../utils/helpers.ts";
 import { format } from "date-fns";
 import { useAppSelector } from "../../hooks/typedHooks.ts";
-import Spinner from "./Spinner.tsx";
 
 function MoodAndSleepCard({
   cardType,
   averageMood,
   averageSleep,
 }: MoodAndSleepCardProps) {
-  const { moodLogs, isLoading } = useAppSelector(
-    (state) => state.logMoodDialog
-  );
-
-  if (isLoading) {
-    return (
-      <div className="flex justify-center py-400">
-        <Spinner size={20} color="#2a4cd5" />
-      </div>
-    );
-  }
+  const { moodLogs } = useAppSelector((state) => state.logMoodDialog);
 
   const latestMood = moodLogs[moodLogs.length - 1];
   const loggedMoodToday =
