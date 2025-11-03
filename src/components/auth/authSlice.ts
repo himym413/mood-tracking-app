@@ -122,11 +122,17 @@ export const logout = createAsyncThunk("auth/logout", async (_, thunkApi) => {
     const { error } = await supabase.auth.signOut();
 
     if (error) return thunkApi.rejectWithValue(error.message);
+
+    thunkApi.dispatch(clearAllData());
   } catch (err) {
     return thunkApi.rejectWithValue(
       err instanceof Error ? err.message : "Something went wrong"
     );
   }
+});
+
+export const clearAllData = createAsyncThunk("auth/clearAllData", async () => {
+  // This will trigger the reset in each slice
 });
 
 export const authSlice = createSlice({
@@ -135,6 +141,10 @@ export const authSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
+      .addCase(clearAllData.fulfilled, (state) => {
+        state.user = null;
+        state.error = null;
+      })
       .addCase(signup.pending, (state) => {
         state.isLoading = true;
       })

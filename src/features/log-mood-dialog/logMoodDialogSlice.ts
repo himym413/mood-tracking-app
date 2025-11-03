@@ -4,7 +4,10 @@ import supabase from "../../services/supabase";
 
 import type { MoodType, SleepType, StepType } from "../../types/logMoodDialog";
 import type { DataType } from "../../types/chart";
-import type { AuthInitialStateType } from "../../components/auth/authSlice";
+import {
+  clearAllData,
+  type AuthInitialStateType,
+} from "../../components/auth/authSlice";
 import { format } from "date-fns";
 
 type initialStateType = {
@@ -147,6 +150,10 @@ export const logMoodDialogSlice = createSlice({
 
   extraReducers(builder) {
     builder
+      .addCase(clearAllData.fulfilled, () => {
+        // Reset to initial state
+        return initialState;
+      })
       .addCase(getMoodLogs.pending, (state) => {
         state.isLoading = true;
       })
