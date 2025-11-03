@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import supabase, { supabaseUrl } from "../../services/supabase";
-import type { AuthInitialStateType } from "../auth/authSlice";
+import { clearAllData, type AuthInitialStateType } from "../auth/authSlice";
 import type { DataType } from "../../types/chart";
 
 export type ProfileInitialStateType = {
@@ -134,6 +134,10 @@ export const profileSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
+      .addCase(clearAllData.fulfilled, () => {
+        // Reset to initial state
+        return initialState;
+      })
       .addCase(getProfile.pending, (state) => {
         state.isLoading = true;
         state.error = null;
