@@ -79,6 +79,8 @@ function MoodDialog({ onClose }: MoodDialogProps) {
         if (submitMood.rejected.match(action))
           toast.error(action.payload as string);
       });
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
       onClose();
     }
   }

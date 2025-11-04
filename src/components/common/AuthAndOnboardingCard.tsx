@@ -22,11 +22,14 @@ function AuthAndOnboardingCard({
         </div>
         <Form cardType={cardType} />
         {cardType !== "onboarding" && (
-          <p className="text-neutral-600 text-center text-preset-6-regular mt-250 cursor-pointer">
+          <p className="text-neutral-600 text-center text-preset-6-regular mt-250">
             {bottomText}{" "}
-            <span className="text-blue-600" onClick={() => navigate(to)}>
+            <button
+              className="text-blue-600 cursor-pointer"
+              onClick={() => navigate(to)}
+            >
               {cardType === "login" ? "Sign Up" : "Log In"}
-            </span>
+            </button>
           </p>
         )}
       </div>
