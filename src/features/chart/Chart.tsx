@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+
 import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
 
 import { useAppSelector } from "../../hooks/typedHooks";
@@ -13,8 +15,25 @@ function Chart() {
   const { moodLogs } = useAppSelector((state) => state.logMoodDialog);
   const processedData = processChartData(moodLogs);
 
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const scrollToRight = () => {
+      const container = scrollContainerRef.current;
+      if (!container) return;
+      container.scrollTo({ left: container.scrollWidth, behavior: "smooth" });
+    };
+
+    scrollToRight();
+    window.addEventListener("resize", scrollToRight);
+    return () => {
+      window.removeEventListener("resize", scrollToRight);
+    };
+  }, [processedData]);
+
   return (
     <div
+      ref={scrollContainerRef}
       className="w-full overflow-x-auto overflow-y-hidden md:max-w-[800px] md:mx-auto"
       onScroll={(e) => {
         // making yAxis appear not to move during scroll
